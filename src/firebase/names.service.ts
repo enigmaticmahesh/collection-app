@@ -5,11 +5,10 @@ import {
     collection,
     addDoc,
     getDoc,
-    doc,
+    // doc,
     serverTimestamp,
     // deleteDoc,
     // setDoc,
-    onSnapshot, orderBy, query
   } from 'firebase/firestore';
 //   port { onSnapshot, orderBy, query } from 'firebase/firestore';
 
