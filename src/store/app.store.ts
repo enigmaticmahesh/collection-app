@@ -8,7 +8,7 @@ interface AppState {
 }
 
 const useAppStore = create<AppState>((set) => ({
-    fTab: FOOTER_TABS.NOTES,
+    fTab: FOOTER_TABS.NAMES,
     setFTab: (tab: fTabValues) => set((state) => ({...state, fTab: tab}))
 }))
 export default useAppStore

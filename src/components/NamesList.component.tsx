@@ -2,13 +2,19 @@ import { Card, Spin } from "antd"
 import { smallPaddingCardStyles } from "../constants"
 import useNames from "../hooks/useNames"
 import { formatCurrencyINR } from "../utils"
+import { delName } from "../firebase/names.service"
 
 const NamesListData = () => {
-    const { names, err, loading } = useNames()
+    const { names, loading } = useNames()
 
-    console.log({names})
-    console.log({err})
-    console.log({loading})
+    const handleDelete = (docID: string) =>  async() => {
+        const { res, err } = await delName(docID)
+        if (err) {
+            console.log({err})
+            return
+        }
+        console.log({res})
+    }
 
     if (loading) {
         return (
@@ -27,7 +33,9 @@ const NamesListData = () => {
                     {nameData.place}
                 </div>
                 {formatCurrencyINR(nameData.amount)}
-                <p style={{cursor: 'pointer', paddingRight: '.5rem', display: 'inline-flex', color: 'red'}}><i className="iconoir-bin-minus-in"></i></p>
+                <p onClick={handleDelete(nameData.id)} style={{cursor: 'pointer', paddingRight: '.5rem', display: 'inline-flex', color: 'red'}}>
+                    <i className="iconoir-bin-minus-in"></i>
+                </p>
             </div>
         )
     }

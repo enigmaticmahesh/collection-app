@@ -10,13 +10,13 @@ const MainContent = () => {
 
     const renderContent = () => {
         switch (fTab) {
-            case FOOTER_TABS.NAMES:
-                return <NamesList />
+            case FOOTER_TABS.NOTES:
+                return <CurrencyCalculator />
             case FOOTER_TABS.TOTAL:
                 return <>Total</>
         
             default:
-                return <CurrencyCalculator />
+                return <NamesList />
         }
     }
     return (

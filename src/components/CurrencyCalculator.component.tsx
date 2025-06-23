@@ -1,22 +1,20 @@
 import Title from "antd/es/typography/Title"
 import { formatCurrencyINR } from "../utils"
-import { useState } from "react"
 import { Button, Card } from "antd"
+import { NOTES } from "../constants"
+import useCurrencyStore from "../store/currency.store"
+import type { Currencies } from "../app.types"
 
 type NoteCalculatorProps = {
-    note: number
+    note: Currencies
 }
 
 const NoteCalculator = ({note}: NoteCalculatorProps) => {
-    const [count, setCount] = useState(0)
-
-    const incCount = () => {
-        setCount(prev => prev + 1)
-    }
-    const decCount = () => {
-        if (count < 1) return
-        setCount(prev => prev - 1)
-    }
+    const { currDataTracker, incCurrency, decCurrency } = useCurrencyStore()
+    const count = currDataTracker.get(note) || 0
+    
+    const incCount = () => incCurrency(note)
+    const decCount = () => decCurrency(note)
 
     const actionHandlerUI = (
         <div style={{display: 'flex', gap: '.5rem', alignItems: 'center'}}>
@@ -39,7 +37,6 @@ const NoteCalculator = ({note}: NoteCalculatorProps) => {
     )
 }
 
-const NOTES = [500, 200, 100, 50, 20, 10, 5, 2, 1]
 const CurrencyCalculator = () => {
     const notesList = NOTES.map(note => <NoteCalculator key={note} note={note} />)
     return (
