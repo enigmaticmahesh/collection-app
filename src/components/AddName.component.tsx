@@ -1,14 +1,14 @@
 import { useReducer, useState } from "react"
 import useAppStore from "../store/app.store"
-import type { PartialNameType } from "../app.types"
+import type { NameType, PartialNameType } from "../app.types"
 import { saveName } from "../firebase/names.service"
 import { Button, Card, Input, InputNumber } from "antd"
-import { FOOTER_TABS, smallPaddingCardStyles } from "../constants"
+import { CUSTOM_EVENTS, FOOTER_TABS, smallPaddingCardStyles } from "../constants"
 
 const NAME_DATA = {name: '', amount: 1, place: ''}
 
 const AddName = () => {
-    const { setFTab } = useAppStore()
+    const setFTab = useAppStore(state => state.setFTab)
     const [loading, setLoading] = useState(false)
     const [nameData, updateNameData] = useReducer((prev: any, next: any) => ({...prev, ...next}), NAME_DATA)
 
@@ -32,6 +32,12 @@ const AddName = () => {
             return
         }
         console.log({res})
+        const user = res as Partial<NameType>
+        const alertData = {
+            type: 'success',
+            content: `${user.name} from ${user.place} added`
+        }
+        document.dispatchEvent(new CustomEvent(CUSTOM_EVENTS.SHOW_ALERT, { detail: alertData }))
         updateNameData(NAME_DATA)
         setFTab(FOOTER_TABS.NOTES)
     }

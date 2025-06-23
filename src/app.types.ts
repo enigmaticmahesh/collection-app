@@ -8,6 +8,24 @@ export type NameType = {
     amount: number;
 }
 
+export type NameTypeWithID = NameType & {
+    id: string;
+}
+
 export type PartialNameType  = keyof NameType;
 
 export type Currencies = typeof NOTES[number];
+
+export type COLLECTION_TOTAL = {
+    namesTotal: number;
+    notesTotal: number;
+}
+
+export type NOTES_TOTAL = {
+    namesTotal: number;
+    notesTotal: number;
+}
+
+export type NumberMap = {
+    [key: number]: number;
+};

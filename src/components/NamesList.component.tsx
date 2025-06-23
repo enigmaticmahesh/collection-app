@@ -3,12 +3,13 @@ import { smallPaddingCardStyles } from "../constants"
 import useNames from "../hooks/useNames"
 import { formatCurrencyINR } from "../utils"
 import { delName } from "../firebase/names.service"
+import type { NameTypeWithID } from "../app.types"
 
 const NamesListData = () => {
     const { names, loading } = useNames()
 
-    const handleDelete = (docID: string) =>  async() => {
-        const { res, err } = await delName(docID)
+    const handleDelete = (doc: NameTypeWithID) =>  async() => {
+        const { res, err } = await delName(doc)
         if (err) {
             console.log({err})
             return
@@ -33,7 +34,7 @@ const NamesListData = () => {
                     {nameData.place}
                 </div>
                 {formatCurrencyINR(nameData.amount)}
-                <p onClick={handleDelete(nameData.id)} style={{cursor: 'pointer', paddingRight: '.5rem', display: 'inline-flex', color: 'red'}}>
+                <p onClick={handleDelete(nameData)} style={{cursor: 'pointer', paddingRight: '.5rem', display: 'inline-flex', color: 'red'}}>
                     <i className="iconoir-bin-minus-in"></i>
                 </p>
             </div>

@@ -10,8 +10,11 @@ type NoteCalculatorProps = {
 }
 
 const NoteCalculator = ({note}: NoteCalculatorProps) => {
-    const { currDataTracker, incCurrency, decCurrency } = useCurrencyStore()
+    const currDataTracker = useCurrencyStore(state => state.currDataTracker)
+    const incCurrency = useCurrencyStore(state => state.incCurrency)
+    const decCurrency = useCurrencyStore(state => state.decCurrency)
     const count = currDataTracker.get(note) || 0
+    // const countChanges = currChangesTracker.get(note)?.change ? currChangesTracker.get(note)?.changeStr : 0
     
     const incCount = () => incCurrency(note)
     const decCount = () => decCurrency(note)
@@ -28,10 +31,13 @@ const NoteCalculator = ({note}: NoteCalculatorProps) => {
         <Card variant="borderless">
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                 <div>
-                    <h4 style={{fontSize: '20px', fontWeight: 600}}>{formatCurrencyINR(note)}</h4>
+                    <h3 style={{fontSize: '24px', fontWeight: 600, marginBottom: '15px'}}>{formatCurrencyINR(+note)}</h3>
+                    {/* <Badge count={countChanges} offset={[10, -8]} className="hello">
+                        <h3 style={{fontSize: '24px', fontWeight: 600, marginBottom: '15px'}}>{formatCurrencyINR(note)}</h3>
+                    </Badge> */}
                     <Title level={4} style={{margin: 0, display: 'flex', gap: '.5rem'}}>{actionHandlerUI}</Title>
                 </div>
-                <h4 style={{fontSize: '20px', fontWeight: 600, margin: 0, alignSelf: 'flex-end'}}>{formatCurrencyINR(note * count)}</h4>
+                <h4 style={{fontSize: '20px', fontWeight: 600, margin: 0, alignSelf: 'flex-end'}}>{formatCurrencyINR(+note * count)}</h4>
             </div>
         </Card>
     )

@@ -4,6 +4,7 @@ import { FOOTER_TABS } from "../constants"
 import CurrencyCalculator from "../components/CurrencyCalculator.component"
 import useAppStore from "../store/app.store"
 import NamesList from "../components/NamesList.component"
+import CollectionTotals from "../components/CollectionTotals.component"
 
 const MainContent = () => {
     const fTab = useAppStore(state => state.fTab)
@@ -13,7 +14,7 @@ const MainContent = () => {
             case FOOTER_TABS.NOTES:
                 return <CurrencyCalculator />
             case FOOTER_TABS.TOTAL:
-                return <>Total</>
+                return <CollectionTotals />
         
             default:
                 return <NamesList />

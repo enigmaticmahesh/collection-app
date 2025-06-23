@@ -14,5 +14,6 @@ export const FB_CONFIGS = {
     },
     COLLECTION: {
         NAMES: 'names',
+        COLLECTION_TOTALS: 'collection-totals',
     },
 } as const
